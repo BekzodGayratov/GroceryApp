@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class DarkThemeColors {
+
+  //todo change SVG Pic
+  static String svgPic = "assets/darkMode/welcome.svg";
   //todo Scaffolds colors
   static Color scaffoldsColor = const Color(0xff171725);
 

@@ -13,7 +13,7 @@ class _EnterancePageState extends State<EnterancePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 3)).then((value) {
+    Future.delayed(const Duration(seconds: 3)).then((value) {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => SignInPage()),
