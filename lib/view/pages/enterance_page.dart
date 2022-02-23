@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:project/providers/change_theme_provider.dart';
 import 'package:project/view/pages/sign_in_page.dart';
-import 'package:project/view/screens/home_page.dart';
+import 'package:provider/provider.dart';
 
 class EnterancePage extends StatefulWidget {
   const EnterancePage({Key? key}) : super(key: key);
@@ -9,6 +10,7 @@ class EnterancePage extends StatefulWidget {
   @override
   _EnterancePageState createState() => _EnterancePageState();
 }
+
 class _EnterancePageState extends State<EnterancePage> {
   @override
   void initState() {
@@ -20,17 +22,23 @@ class _EnterancePageState extends State<EnterancePage> {
           (route) => false);
     });
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: SvgPicture.asset(
-          'assets/Logo.svg',
-          height: MediaQuery.of(context).size.height * 0.25,
-          width: 135.0,
-          allowDrawingOutsideViewBox: true,
-        ),
-      ),
+    return ChangeNotifierProvider(
+      create: ((context) => ChangeThemeProvider()),
+      builder: (context, child) {
+        return Scaffold(
+          backgroundColor: context.watch<ChangeThemeProvider>().scaffoldColor,
+          body: Center(
+            child: SvgPicture.asset(
+              'assets/Logo.svg',
+              height: MediaQuery.of(context).size.height * 0.25,
+              allowDrawingOutsideViewBox: true,
+            ),
+          ),
+        );
+      },
     );
   }
 }

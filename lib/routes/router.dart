@@ -5,7 +5,7 @@ import 'package:project/view/screens/home_page.dart';
 
 class MyRouter {
   Route? onGenerate(RouteSettings settings) {
-    var args = settings.arguments;
+    final args = settings.arguments;
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (context) => HomePage());
@@ -13,6 +13,8 @@ class MyRouter {
         return MaterialPageRoute(builder: (context) => EnterancePage());
       case '/signIn':
         return MaterialPageRoute(builder: (context) => SignInPage());
+  
     }
+    return null;
   }
 }

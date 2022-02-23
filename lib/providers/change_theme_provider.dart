@@ -11,6 +11,8 @@ class ChangeThemeProvider extends ChangeNotifier {
   Color secondaryTextColor = LightThemeColors.secondaryTextsColor;
   Color loginPageOutlineButtonColor =
       LightThemeColors.loginPageOutlineButtonColor;
+  Color elevatedButtonsColor = LightThemeColors.elevatedButtonsColor;
+  Color elevatedButtonsTextsColor = LightThemeColors.elevatedButtonTextsColor;
 
   void changeTheme() {
     if (yes == true) {
@@ -19,6 +21,8 @@ class ChangeThemeProvider extends ChangeNotifier {
       primaryTextColor = DarkThemeColors.primaryTextsColor;
       secondaryTextColor = DarkThemeColors.secondaryTextsColor;
       loginPageOutlineButtonColor = DarkThemeColors.loginPageOutlineButtonColor;
+      elevatedButtonsColor = DarkThemeColors.elevatedButtonsColor;
+      elevatedButtonsTextsColor = DarkThemeColors.elevatedButtonTextsColor;
       yes = !yes;
       notifyListeners();
     } else {
@@ -28,6 +32,8 @@ class ChangeThemeProvider extends ChangeNotifier {
       secondaryTextColor = LightThemeColors.secondaryTextsColor;
       loginPageOutlineButtonColor =
           LightThemeColors.loginPageOutlineButtonColor;
+      elevatedButtonsColor = LightThemeColors.elevatedButtonsColor;
+      elevatedButtonsTextsColor = LightThemeColors.elevatedButtonTextsColor;
       yes = !yes;
       notifyListeners();
     }
