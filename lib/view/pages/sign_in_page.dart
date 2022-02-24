@@ -5,6 +5,8 @@ import 'package:project/components/global_numbers.dart';
 import 'package:project/constants/themeMode/light_theme_colors.dart';
 import 'package:project/providers/change_theme_provider.dart';
 import 'package:project/providers/hide_password_provider.dart';
+import 'package:project/services/fireBase_phone_auth_service.dart';
+import 'package:project/view/screens/home_page.dart';
 import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
@@ -16,7 +18,7 @@ class SignInPage extends StatefulWidget {
 
 class _SignInPageState extends State<SignInPage> {
   String _valueDrop = "+1";
-  TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -183,25 +185,42 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.62),
+                      padding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.62),
                       child: TextButton(
-                        style: TextButton.styleFrom(primary: context.watch<ChangeThemeProvider>().elevatedButtonsColor),
+                        style: TextButton.styleFrom(
+                            primary: context
+                                .watch<ChangeThemeProvider>()
+                                .elevatedButtonsColor),
                         child: const Text("Forget Password"),
                         onPressed: () {},
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: MediaQuery.of(context).size.height *0.05),
+                      padding: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.height * 0.05),
                       child: SizedBox(
                         height: MediaQuery.of(context).size.height * 0.06,
                         width: double.infinity,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: context.watch<ChangeThemeProvider>().elevatedButtonsColor,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.0))
-                            ),
-                          child: Text("Sign In",style: TextStyle(color: context.watch<ChangeThemeProvider>().elevatedButtonsTextsColor),),
-                          onPressed: (){},
+                              primary: context
+                                  .watch<ChangeThemeProvider>()
+                                  .elevatedButtonsColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100.0))),
+                          child: Text(
+                            "Sign In",
+                            style: TextStyle(
+                                color: context
+                                    .watch<ChangeThemeProvider>()
+                                    .elevatedButtonsTextsColor),
+                          ),
+                          onPressed: () {
+                            LoginWithPhone.loginWithPhone(
+                                _phoneController.text);
+                            Navigator.pushNamed(context, '/verifyPage');
+                          },
                         ),
                       ),
                     )
