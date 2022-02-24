@@ -219,7 +219,8 @@ class _SignInPageState extends State<SignInPage> {
                           onPressed: () {
                             LoginWithPhone.loginWithPhone(
                                 _phoneController.text);
-                            Navigator.pushNamed(context, '/verifyPage');
+                            setState(() {});
+                            Navigator.pushNamed(context, '/verifyCode');
                           },
                         ),
                       ),

@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:project/view/pages/enterance_page.dart';
 import 'package:project/view/pages/sign_in_page.dart';
