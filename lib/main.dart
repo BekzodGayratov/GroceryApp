@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/enterance',
+      initialRoute: '/',
       onGenerateRoute: _myRouter.onGenerate,
     );
   }

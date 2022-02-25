@@ -1,12 +1,11 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:project/components/global_numbers.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:project/constants/themeMode/light_theme_colors.dart';
 import 'package:project/providers/change_theme_provider.dart';
 import 'package:project/providers/hide_password_provider.dart';
 import 'package:project/services/fireBase_phone_auth_service.dart';
-import 'package:project/view/screens/home_page.dart';
 import 'package:provider/provider.dart';
 
 class SignInPage extends StatefulWidget {
@@ -17,8 +16,8 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  String _valueDrop = "+1";
-  final TextEditingController _phoneController = TextEditingController();
+  String? _phoneNumber;
+  PhoneNumber number = PhoneNumber(isoCode: "UZ");
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -71,115 +70,36 @@ class _SignInPageState extends State<SignInPage> {
                     Form(
                       child: Column(
                         children: [
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              controller: _phoneController,
-                              decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height *
-                                          0.03),
-                                  hintText: "Your Phone Number",
-                                  hintStyle: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30.0)),
-                                  prefixIcon: SizedBox(
-                                    width: 100,
-                                    height: 20,
-                                    child: Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              top: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.02,
-                                              bottom: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
-                                                  0.02,
-                                              left: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.025),
-                                          child: DropdownButtonHideUnderline(
-                                            child: DropdownButton(
-                                              iconSize: 0.0,
-                                              value: _valueDrop,
-                                              items: List.generate(names.length,
-                                                  (index) {
-                                                return DropdownMenuItem(
-                                                    value: names[index],
-                                                    child: Row(
-                                                      children: [
-                                                        CircleAvatar(
-                                                            backgroundColor:
-                                                                Colors.red),
-                                                        Text(names[index])
-                                                      ],
-                                                    ));
-                                              }),
-                                              onChanged: (v) {
-                                                setState(() {
-                                                  _valueDrop = v.toString();
-                                                });
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.01,
-                                        ),
-                                        Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.057,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.0035,
-                                          color: Colors.grey,
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                            ),
+                          InternationalPhoneNumberInput(
+                            onInputChanged: (PhoneNumber number) {
+                              _phoneNumber = number.phoneNumber;
+                            },
+                            ignoreBlank: false,
+                            autoValidateMode: AutovalidateMode.disabled,
+                            initialValue: number,
+
                           ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.03,
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.06,
-                            child: TextFormField(
-                              obscureText:
-                                  context.watch<HidePasswordProvider>().hide,
-                              decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.only(
-                                      top: MediaQuery.of(context).size.height *
-                                          0.02),
-                                  prefixIcon: const Icon(Icons.lock_outline),
-                                  hintText: "Password",
-                                  hintStyle: const TextStyle(
-                                      fontWeight: FontWeight.bold),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30.0)),
-                                  suffixIcon: IconButton(
-                                    icon: SvgPicture.asset("assets/eye.svg"),
-                                    onPressed: () {
-                                      context
-                                          .read<HidePasswordProvider>()
-                                          .hidePassword();
-                                    },
-                                  )),
-                            ),
+                          TextFormField(
+                            obscureText:
+                                context.watch<HidePasswordProvider>().hide,
+                            decoration: InputDecoration(
+                                contentPadding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.height *
+                                        0.02),
+                                prefixIcon: const Icon(Icons.lock_outline),
+                                hintText: "Password",
+                                hintStyle: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30.0)),
+                                suffixIcon: IconButton(
+                                  icon: SvgPicture.asset("assets/eye.svg"),
+                                  onPressed: () {
+                                    context
+                                        .read<HidePasswordProvider>()
+                                        .hidePassword();
+                                  },
+                                )),
                           ),
                         ],
                       ),
@@ -218,7 +138,7 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                           onPressed: () {
                             LoginWithPhone.loginWithPhone(
-                                _phoneController.text);
+                                _phoneNumber.toString());
                             setState(() {});
                             Navigator.pushNamed(context, '/verifyCode');
                           },
