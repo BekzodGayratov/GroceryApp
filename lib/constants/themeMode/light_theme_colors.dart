@@ -20,4 +20,6 @@ class LightThemeColors {
 
   //todo Secondary texts colors
   static Color secondaryTextsColor = const Color(0xff92929D);
+  //todo BottomNavigationBar color
+  static Color bottomNavigatinBarColor = const Color(0xffFFFFFF);
 }

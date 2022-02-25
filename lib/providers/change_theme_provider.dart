@@ -13,6 +13,7 @@ class ChangeThemeProvider extends ChangeNotifier {
       LightThemeColors.loginPageOutlineButtonColor;
   Color elevatedButtonsColor = LightThemeColors.elevatedButtonsColor;
   Color elevatedButtonsTextsColor = LightThemeColors.elevatedButtonTextsColor;
+  Color bottomNavigationBarColor = LightThemeColors.bottomNavigatinBarColor;
 
   void changeTheme() {
     if (yes == true) {
@@ -23,6 +24,7 @@ class ChangeThemeProvider extends ChangeNotifier {
       loginPageOutlineButtonColor = DarkThemeColors.loginPageOutlineButtonColor;
       elevatedButtonsColor = DarkThemeColors.elevatedButtonsColor;
       elevatedButtonsTextsColor = DarkThemeColors.elevatedButtonTextsColor;
+      bottomNavigationBarColor = DarkThemeColors.bottomNavigatinBarColor;
       yes = !yes;
       notifyListeners();
     } else {
@@ -34,6 +36,7 @@ class ChangeThemeProvider extends ChangeNotifier {
           LightThemeColors.loginPageOutlineButtonColor;
       elevatedButtonsColor = LightThemeColors.elevatedButtonsColor;
       elevatedButtonsTextsColor = LightThemeColors.elevatedButtonTextsColor;
+      bottomNavigationBarColor = LightThemeColors.bottomNavigatinBarColor;
       yes = !yes;
       notifyListeners();
     }
