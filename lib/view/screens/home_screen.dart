@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:project/widgets/homeScreen/search_field.dart';
 import 'package:provider/provider.dart';
 import 'package:project/providers/change_theme_provider.dart';
 
@@ -10,6 +11,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int _coupons = 3;
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,49 +46,80 @@ class HomeScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     height: MediaQuery.of(context).size.height * 0.062,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.height * 0.017),
-                          prefixIcon: const Icon(Icons.search),
-                          filled: true,
-                          fillColor: const Color(0xffF1F1F5),
-                          hintText: "Search anything here",
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: context
-                                    .watch<ChangeThemeProvider>()
-                                    .secondaryTextColor),
-                            borderRadius: BorderRadius.circular(25.7),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: const BorderSide(color: Colors.white),
-                              borderRadius: BorderRadius.circular(25.7))),
-                    ),
+                    child: SearchFieldHomeScreen(),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height *0.02),
+                    padding: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.height * 0.02),
                     child: ListTile(
-                      contentPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.015),
+                      contentPadding: EdgeInsets.only(
+                          left: MediaQuery.of(context).size.width * 0.015),
                       leading: SvgPicture.asset(
                           "assets/homePageComponents/coupon.svg"),
-                      title: const Text(
-                        "You have 3 coupon",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      title: Text(
+                        "You have $_coupons coupon",
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: const Text("Let's use this coupon"),
                       trailing: const Icon(Icons.arrow_forward_ios_outlined),
                     ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:[
-                      Text("Choose Category",style: TextStyle(fontWeight: FontWeight.bold,color: context.watch<ChangeThemeProvider>().primaryTextColor),),
-                      Text("See all",style: TextStyle(color: context.watch<ChangeThemeProvider>().secondaryTextColor),)
-                    ]
-                  )
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Choose Category",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: context
+                                  .watch<ChangeThemeProvider>()
+                                  .primaryTextColor),
+                        ),
+                        Text(
+                          "See all",
+                          style: TextStyle(
+                              color: context
+                                  .watch<ChangeThemeProvider>()
+                                  .secondaryTextColor),
+                        ),
+                      ]),
                 ],
               ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.03,
+                top: MediaQuery.of(context).size.height * 0.02),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.16,
+                  width: double.infinity,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        margin: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.025),
+                        height: double.infinity,
+                        width: MediaQuery.of(context).size.width * 0.35,
+                        decoration: BoxDecoration(
+                           color: Colors.blue,
+                          borderRadius: BorderRadius.circular(20.0)
+                        ),
+                        child: Column(
+                          children: [
+                            SvgPicture.network(""),
+                            Text("Vegetables"),
+                          ],
+                        ),
+                      );
+                    },  
+                  ),
+                )
+              ],
             ),
           ),
         ],
