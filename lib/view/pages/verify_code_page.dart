@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/services/fireBase_phone_auth_service.dart';
-import 'package:project/view/screens/home_page.dart';
+import 'package:project/view/screens/current_screen.dart';
 
 class VerifyCodePage extends StatelessWidget {
   VerifyCodePage({Key? key}) : super(key: key);
@@ -24,7 +24,7 @@ class VerifyCodePage extends StatelessWidget {
               LoginWithPhone.verifyOTP(_sentCode.text);
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
+                  MaterialPageRoute(builder: (context) => CurrentScreen()),
                   (route) => false);
             },
           ),

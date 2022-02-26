@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project/providers/change_theme_provider.dart';
 import 'package:project/view/pages/sign_in_page.dart';
-import 'package:project/view/screens/home_page.dart';
+import 'package:project/view/screens/current_screen.dart';
 import 'package:provider/provider.dart';
 
 class EnterancePage extends StatefulWidget {
@@ -23,7 +23,7 @@ class _EnterancePageState extends State<EnterancePage> {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  _authUser.currentUser != null ? HomePage() : SignInPage()),
+                  _authUser.currentUser != null ? CurrentScreen() : SignInPage()),
           (route) => false);
     });
   }

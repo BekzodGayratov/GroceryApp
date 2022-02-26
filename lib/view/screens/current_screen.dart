@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project/providers/change_theme_provider.dart';
+import 'package:project/view/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class CurrentScreen extends StatelessWidget {
+  const CurrentScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> screens = [HomeScreen()]; 
     return ChangeNotifierProvider(
       create: (context) => ChangeThemeProvider(),
       builder: (context, child) {
         return Scaffold(
-          body: const Center(child: Text("SALOM")),
+          body:  screens[0],
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
             currentIndex: 0,
