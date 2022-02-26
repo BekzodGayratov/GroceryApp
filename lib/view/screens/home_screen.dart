@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
           Center(
             child: Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: MediaQuery.of(context).size.width * 0.02),
+                  horizontal: MediaQuery.of(context).size.width * 0.03),
               child: Column(
                 children: [
                   Text(
@@ -64,16 +64,27 @@ class HomeScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(25.7))),
                     ),
                   ),
-                  ListTile(
-                    leading: SvgPicture.asset(
-                        "assets/homePageComponents/coupon.svg"),
-                    title: const Text(
-                      "You have 3 coupon",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height *0.02),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.only(left: MediaQuery.of(context).size.width *0.015),
+                      leading: SvgPicture.asset(
+                          "assets/homePageComponents/coupon.svg"),
+                      title: const Text(
+                        "You have 3 coupon",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: const Text("Let's use this coupon"),
+                      trailing: const Icon(Icons.arrow_forward_ios_outlined),
                     ),
-                    subtitle: const Text("Let's use this coupon"),
-                    trailing: const Icon(Icons.arrow_forward_ios_outlined),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children:[
+                      Text("Choose Category",style: TextStyle(fontWeight: FontWeight.bold,color: context.watch<ChangeThemeProvider>().primaryTextColor),),
+                      Text("See all",style: TextStyle(color: context.watch<ChangeThemeProvider>().secondaryTextColor),)
+                    ]
+                  )
                 ],
               ),
             ),
