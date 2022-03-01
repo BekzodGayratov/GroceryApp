@@ -1,17 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:project/functions/home_page_categories.dart';
+import 'package:project/services/fireStore.services.dart';
 import 'package:project/widgets/homeScreen/search_field.dart';
 import 'package:provider/provider.dart';
 import 'package:project/providers/change_theme_provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({
+  HomeScreen({
     Key? key,
   }) : super(key: key);
 
+  final _firestore = FirebaseFirestore.instance;
+  int _coupons = 3;
+
   @override
   Widget build(BuildContext context) {
-    int _coupons = 3;
     return SafeArea(
       child: SingleChildScrollView(
         child: Column(
@@ -88,72 +93,62 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.03,
-                  top: MediaQuery.of(context).size.height * 0.02),
-              child: Column(
-                children: [
-                  categories(context, boxHeight: 0.16, contWidth: 0.3),
-                  Padding(
+            FutureBuilder(
+              future: FireStoreService.readValue(collection: "grocery"),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasError) {
+                  return const Center(
+                    child: Text("Error"),
+                  );
+                } else {
+                  return Padding(
                     padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.04,
-                        right: MediaQuery.of(context).size.width * 0.028,
-                        bottom: MediaQuery.of(context).size.height * 0.02),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Best Selling",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: context
-                                    .watch<ChangeThemeProvider>()
-                                    .primaryTextColor),
-                          ),
-                          Text(
-                            "See all",
-                            style: TextStyle(
-                                color: context
-                                    .watch<ChangeThemeProvider>()
-                                    .secondaryTextColor),
-                          ),
-                        ]),
-                  ),
-                  categories(context, boxHeight: 0.3, contWidth: 0.47)
-                ],
-              ),
-            ),
+                        left: MediaQuery.of(context).size.width * 0.03,
+                        top: MediaQuery.of(context).size.height * 0.02),
+                    child: Column(
+                      children: [
+                        categories(context, b: true),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.height * 0.05,
+                              right: MediaQuery.of(context).size.width * 0.028,
+                              bottom:
+                                  MediaQuery.of(context).size.height * 0.02),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Best Selling",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: context
+                                          .watch<ChangeThemeProvider>()
+                                          .primaryTextColor),
+                                ),
+                                Text(
+                                  "See all",
+                                  style: TextStyle(
+                                      color: context
+                                          .watch<ChangeThemeProvider>()
+                                          .secondaryTextColor),
+                                ),
+                              ]),
+                        ),
+                        categories(context, b: false)
+                      ],
+                    ),
+                  );
+                }
+              },
+            )
           ],
         ),
       ),
     );
   }
 
-  SizedBox categories(BuildContext context,
-      {required double boxHeight, required double contWidth}) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * boxHeight,
-      width: double.infinity,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: MediaQuery.of(context).size.width * 0.022),
-            height: double.infinity,
-            width: MediaQuery.of(context).size.width * contWidth,
-            decoration: BoxDecoration(
-                color: Colors.blue, borderRadius: BorderRadius.circular(20.0)),
-            child: Column(
-              children: [
-                //SvgPicture.network(""),
-                Text("Vegetables"),
-              ],
-            ),
-          );
-        },
-      ),
-    );
   }
-}

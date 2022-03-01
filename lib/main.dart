@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(fontFamily: "Nano"),
-      initialRoute: '/',
+      initialRoute: '/enterance',
       onGenerateRoute: _myRouter.onGenerate,
     );
   }
