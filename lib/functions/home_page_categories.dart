@@ -7,7 +7,7 @@ import 'package:project/providers/change_theme_provider.dart';
 SizedBox categories(BuildContext context, {required bool b}) {
   if (b) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.16,
+      height: MediaQuery.of(context).size.height * 0.175,
       width: double.infinity,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -28,7 +28,7 @@ SizedBox categories(BuildContext context, {required bool b}) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SvgPicture.network(
-                        FireStoreReadDataService.category![index]["imageUrl"]),
+                        FireStoreReadDataService.category![index]["imageUrl"],height: MediaQuery.of(context).size.height * 0.08,),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),

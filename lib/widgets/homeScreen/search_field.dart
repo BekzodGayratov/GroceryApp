@@ -15,11 +15,10 @@ class SearchFieldHomeScreen extends StatelessWidget {
               EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.017),
           prefixIcon: const Icon(Icons.search),
           filled: true,
-          fillColor: const Color(0xffF1F1F5),
+          fillColor: context.watch<ChangeThemeProvider>().searchFieldColor,
           hintText: "Search anything here",
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-                color: context.watch<ChangeThemeProvider>().secondaryTextColor),
+            borderSide: BorderSide.none,
             borderRadius: BorderRadius.circular(25.7),
           ),
           enabledBorder: UnderlineInputBorder(

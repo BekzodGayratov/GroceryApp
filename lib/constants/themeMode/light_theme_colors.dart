@@ -21,6 +21,8 @@ class LightThemeColors {
   //todo Secondary texts colors
   static Color secondaryTextsColor = const Color(0xff92929D);
   //todo BottomNavigationBar color
-  static Color bottomNavigatinBarColor = const Color(0xfff0eded);
+  static Color bottomNavigatinBarColor = const Color(0xfffF1F1F5);
   static Color bottomNavigationBarItemColor = const Color(0xff2ECC71);
+  //todo SearchField color 
+  static Color searchFieldColor = const Color(0xffF1F1F5);
 }

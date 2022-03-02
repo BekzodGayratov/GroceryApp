@@ -23,4 +23,6 @@ class DarkThemeColors {
   //todo BottomNavigationBar color
   static Color bottomNavigatinBarColor = const Color(0xff1D2335);
   static Color bottomNavigationBarItemColor = const Color(0xff2ECC71);
+  //todo SearchField color 
+  static Color searchFieldColor = const Color(0xff1D2335);
 }

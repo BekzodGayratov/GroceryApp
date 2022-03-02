@@ -16,6 +16,7 @@ class ChangeThemeProvider extends ChangeNotifier {
   Color bottomNavigationBarColor = LightThemeColors.bottomNavigatinBarColor;
   Color bottomNavigationBarItemColor =
       LightThemeColors.bottomNavigationBarItemColor;
+  Color searchFieldColor = LightThemeColors.searchFieldColor;
 
   void changeTheme() {
     if (yes == true) {
@@ -29,6 +30,7 @@ class ChangeThemeProvider extends ChangeNotifier {
       bottomNavigationBarColor = DarkThemeColors.bottomNavigatinBarColor;
       bottomNavigationBarItemColor =
           DarkThemeColors.bottomNavigationBarItemColor;
+      searchFieldColor = DarkThemeColors.searchFieldColor;
       yes = !yes;
       notifyListeners();
     } else {
@@ -41,8 +43,9 @@ class ChangeThemeProvider extends ChangeNotifier {
       elevatedButtonsColor = LightThemeColors.elevatedButtonsColor;
       elevatedButtonsTextsColor = LightThemeColors.elevatedButtonTextsColor;
       bottomNavigationBarColor = LightThemeColors.bottomNavigatinBarColor;
-       bottomNavigationBarItemColor =
+      bottomNavigationBarItemColor =
           LightThemeColors.bottomNavigationBarItemColor;
+      searchFieldColor = LightThemeColors.searchFieldColor;
       yes = !yes;
       notifyListeners();
     }
