@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 
-class FireStoreService {
+class FireStoreReadDataService {
   static List? locations;
+  static String? selectedLocation;
   static List? category;
   static List? bestSelling;
+  static int? coupons;
   static final firestore = FirebaseFirestore.instance;
+
   static readValue({required String collection}) async {
     try {
       await readData();
@@ -23,12 +26,17 @@ class FireStoreService {
       category = (value.get("category") as List);
     });
     await collection.doc("location").get().then((value) {
-      bestSelling = (value.get("locations") as List);
+      locations = (value.get("locations") as List);
+    });
+    await collection.doc("location").get().then((value) {
+      selectedLocation = (value.get("selectedLocation") as String);
     });
     await collection.doc("bestSelling").get().then((value) {
       bestSelling = (value.get("products") as List);
     });
+    await collection.doc("coupons").get().then((value) {
+      coupons = int.parse(value.get("coupons"));
+    });
     return null;
   }
-
 }

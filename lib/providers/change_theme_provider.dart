@@ -14,6 +14,8 @@ class ChangeThemeProvider extends ChangeNotifier {
   Color elevatedButtonsColor = LightThemeColors.elevatedButtonsColor;
   Color elevatedButtonsTextsColor = LightThemeColors.elevatedButtonTextsColor;
   Color bottomNavigationBarColor = LightThemeColors.bottomNavigatinBarColor;
+  Color bottomNavigationBarItemColor =
+      LightThemeColors.bottomNavigationBarItemColor;
 
   void changeTheme() {
     if (yes == true) {
@@ -25,6 +27,8 @@ class ChangeThemeProvider extends ChangeNotifier {
       elevatedButtonsColor = DarkThemeColors.elevatedButtonsColor;
       elevatedButtonsTextsColor = DarkThemeColors.elevatedButtonTextsColor;
       bottomNavigationBarColor = DarkThemeColors.bottomNavigatinBarColor;
+      bottomNavigationBarItemColor =
+          DarkThemeColors.bottomNavigationBarItemColor;
       yes = !yes;
       notifyListeners();
     } else {
@@ -37,6 +41,8 @@ class ChangeThemeProvider extends ChangeNotifier {
       elevatedButtonsColor = LightThemeColors.elevatedButtonsColor;
       elevatedButtonsTextsColor = LightThemeColors.elevatedButtonTextsColor;
       bottomNavigationBarColor = LightThemeColors.bottomNavigatinBarColor;
+       bottomNavigationBarItemColor =
+          LightThemeColors.bottomNavigationBarItemColor;
       yes = !yes;
       notifyListeners();
     }

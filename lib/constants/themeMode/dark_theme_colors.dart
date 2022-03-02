@@ -22,4 +22,5 @@ class DarkThemeColors {
   static Color secondaryTextsColor = const Color(0xff92929D);
   //todo BottomNavigationBar color
   static Color bottomNavigatinBarColor = const Color(0xff1D2335);
+  static Color bottomNavigationBarItemColor = const Color(0xff2ECC71);
 }

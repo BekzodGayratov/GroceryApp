@@ -1,20 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project/functions/home_page_categories.dart';
-import 'package:project/services/fireStore.services.dart';
+import 'package:project/providers/selected_location_provider.dart';
+import 'package:project/services/fireStore_readData_services.dart';
 import 'package:project/widgets/homeScreen/search_field.dart';
 import 'package:provider/provider.dart';
 import 'package:project/providers/change_theme_provider.dart';
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({
+  const HomeScreen({
     Key? key,
   }) : super(key: key);
-
-  final _firestore = FirebaseFirestore.instance;
-  int _coupons = 3;
-  String _location = "Bandung,Cimahi";
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +33,56 @@ class HomeScreen extends StatelessWidget {
                               .secondaryTextColor,
                           fontWeight: FontWeight.bold),
                     ),
-                    // DropdownButtonHideUnderline(
-                    //   child: DropdownLocation(),
-                    // ),
+                    FutureBuilder(
+                      future: FireStoreReadDataService.readValue(collection: "grocery"),
+                      builder: (context, AsyncSnapshot snapshot) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          );
+                        } else if (snapshot.hasError) {
+                          return const Center(
+                            child: Text("Internet connection error"),
+                          );
+                        } else {
+                          return ChangeNotifierProvider(
+                            create: (context) => SelectedLocationProvider(),
+                            builder: (context, child) {
+                              return DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  value: context
+                                      .watch<SelectedLocationProvider>()
+                                      .selectedLocation
+                                      .toString(),
+                                  items: List.generate(
+                                      FireStoreReadDataService.locations!.length,
+                                      (index) {
+                                    return DropdownMenuItem(
+                                        value: FireStoreReadDataService
+                                            .locations![index]
+                                            .toString(),
+                                        child: Text(
+                                          FireStoreReadDataService.locations![index]
+                                              .toString(),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: context
+                                                  .watch<ChangeThemeProvider>()
+                                                  .primaryTextColor),
+                                        ));
+                                  }),
+                                  onChanged: (v) {
+                                    context
+                                        .read<SelectedLocationProvider>()
+                                        .changeLocation(v.toString());
+                                  },
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      },
+                    ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.062,
                       child: SearchFieldHomeScreen(),
@@ -53,10 +96,10 @@ class HomeScreen extends StatelessWidget {
                         leading: SvgPicture.asset(
                             "assets/homePageComponents/coupon.svg"),
                         title: Text(
-                          "You have $_coupons coupon",
-                          style: const TextStyle(fontWeight: FontWeight.bold),
+                          "You have ${FireStoreReadDataService.coupons} coupon",
+                          style: TextStyle(fontWeight: FontWeight.bold,color: context.watch<ChangeThemeProvider>().primaryTextColor),
                         ),
-                        subtitle: const Text("Let's use this coupon"),
+                        subtitle: Text("Let's use this coupon",style: TextStyle(color: context.watch<ChangeThemeProvider>().secondaryTextColor),),
                         trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                     ),
@@ -84,7 +127,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             FutureBuilder(
-              future: FireStoreService.readValue(collection: "grocery"),
+              future: FireStoreReadDataService.readValue(collection: "grocery"),
               builder: (context, AsyncSnapshot snapshot) {
                 if (!snapshot.hasData) {
                   return const Center(
@@ -141,4 +184,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-

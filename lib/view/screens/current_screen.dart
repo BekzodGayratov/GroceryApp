@@ -14,32 +14,42 @@ class CurrentScreen extends StatelessWidget {
       create: (context) => ChangeThemeProvider(),
       builder: (context, child) {
         return Scaffold(
+          backgroundColor: context.watch<ChangeThemeProvider>().scaffoldColor,
           body: screens[0],
           bottomNavigationBar: ClipRRect(
-            borderRadius: const BorderRadius.only(topLeft: Radius.circular(20.0),topRight: Radius.circular(20.0)),
+            borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0)),
             child: BottomNavigationBar(
               type: BottomNavigationBarType.fixed,
               currentIndex: 0,
-              elevation:50.0,
+              elevation: 50.0,
               backgroundColor:
                   context.watch<ChangeThemeProvider>().bottomNavigationBarColor,
               selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              selectedItemColor: context.watch<ChangeThemeProvider>().bottomNavigationBarItemColor,
+              unselectedItemColor: const Color(0xff92929D),
               items: [
                 BottomNavigationBarItem(
-                    icon: SvgPicture.asset("assets/bottomNavigation/home.svg"),
+                    icon: SvgPicture.asset("assets/bottomNavigation/home.svg",),
                     label: "Home"),
                 BottomNavigationBarItem(
-                    icon: SvgPicture.asset("assets/bottomNavigation/search.svg"),
+                    icon:
+                        SvgPicture.asset("assets/bottomNavigation/search.svg"),
                     label: "Explore"),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset("assets/bottomNavigation/cart.svg"),
                     label: "Cart"),
                 BottomNavigationBarItem(
-                    icon: SvgPicture.asset("assets/bottomNavigation/profile.svg"),
+                    icon:
+                        SvgPicture.asset("assets/bottomNavigation/profile.svg"),
                     label: "Profile"),
               ],
             ),
           ),
+          floatingActionButton: FloatingActionButton(onPressed: () {
+            context.read<ChangeThemeProvider>().changeTheme();
+          }),
         );
       },
     );
