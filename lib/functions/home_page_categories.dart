@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/services/fireStore_readData_services.dart';
+import 'package:project/services/fireStore_service.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project/providers/change_theme_provider.dart';
@@ -18,8 +18,8 @@ SizedBox categories(BuildContext context, {required bool b}) {
               height: double.infinity,
               width: MediaQuery.of(context).size.width * 0.3,
               decoration: BoxDecoration(
-                  color: Color(
-                      int.parse(FireStoreReadDataService.category![index]["color"])),
+                  color: Color(int.parse(
+                      FireStoreService.categoryBox!.getAt(0)[index]["color"])),
                   borderRadius: BorderRadius.circular(20.0)),
               child: Padding(
                 padding:
@@ -27,13 +27,22 @@ SizedBox categories(BuildContext context, {required bool b}) {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SvgPicture.network(
-                        FireStoreReadDataService.category![index]["imageUrl"],height: MediaQuery.of(context).size.height * 0.08,),
+                    FireStoreService.categoryBox!.getAt(0)[index]["imageUrl"] ==
+                            null
+                        ? SvgPicture.asset(
+                            "assets/noImage.svg",
+                            height: MediaQuery.of(context).size.height * 0.08,
+                          )
+                        : SvgPicture.network(
+                            FireStoreService.categoryBox!.getAt(0)[index]
+                                ["imageUrl"],
+                            height: MediaQuery.of(context).size.height * 0.08,
+                          ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
                     Text(
-                      FireStoreReadDataService.category![index]["name"],
+                      FireStoreService.category![index]["name"],
                       style: TextStyle(
                           color: context
                               .watch<ChangeThemeProvider>()
@@ -45,7 +54,7 @@ SizedBox categories(BuildContext context, {required bool b}) {
               ),
             );
           },
-          itemCount: FireStoreReadDataService.category!.length),
+          itemCount: (FireStoreService.categoryBox!.getAt(0) as List).length),
     );
   } else {
     return SizedBox(
@@ -60,7 +69,9 @@ SizedBox categories(BuildContext context, {required bool b}) {
             height: double.infinity,
             width: MediaQuery.of(context).size.width * 0.48,
             decoration: BoxDecoration(
-                color: Color(int.parse(FireStoreReadDataService.bestSelling![index]["backColor"])), borderRadius: BorderRadius.circular(20.0)),
+                color: Color(int.parse(FireStoreService.bestSellingBox!
+                    .getAt(0)[index]["backColor"])),
+                borderRadius: BorderRadius.circular(20.0)),
             child: Padding(
               padding:
                   EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
@@ -68,19 +79,26 @@ SizedBox categories(BuildContext context, {required bool b}) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SvgPicture.network(
-                  FireStoreReadDataService.bestSelling![index]['imageUrl'],height: MediaQuery.of(context).size.height *0.1,
+                    FireStoreService.bestSellingBox!.getAt(0)[index]
+                        ['imageUrl'],
+                    height: MediaQuery.of(context).size.height * 0.1,
                   ),
                   Padding(
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.025,
                         bottom: MediaQuery.of(context).size.height * 0.007),
                     child: Text(
-                   FireStoreReadDataService.bestSelling![index]["name"],
-                      style: TextStyle(fontWeight: FontWeight.w700,color: context.watch<ChangeThemeProvider>().primaryTextColor),
+                      FireStoreService.bestSellingBox!.getAt(0)[index]["name"],
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          color: context
+                              .watch<ChangeThemeProvider>()
+                              .primaryTextColor),
                     ),
                   ),
                   Text(
-                    FireStoreReadDataService.bestSelling![index]["subtitle"],
+                    FireStoreService.bestSellingBox!.getAt(0)[index]
+                        ["subtitle"],
                     style: TextStyle(
                         color: context
                             .watch<ChangeThemeProvider>()
@@ -94,9 +112,16 @@ SizedBox categories(BuildContext context, {required bool b}) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        FireStoreReadDataService.bestSelling![index]['kg'].toString()+"/Kg",
+                        FireStoreService.bestSellingBox!
+                                .getAt(0)[index]['kg']
+                                .toString() +
+                            "/Kg",
                         style: TextStyle(
-                            fontSize: 16.0, fontWeight: FontWeight.w700,color: context.watch<ChangeThemeProvider>().primaryTextColor),
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w700,
+                            color: context
+                                .watch<ChangeThemeProvider>()
+                                .primaryTextColor),
                         maxLines: 1,
                         overflow: TextOverflow.fade,
                         softWrap: false,
@@ -123,7 +148,7 @@ SizedBox categories(BuildContext context, {required bool b}) {
             ),
           );
         },
-        itemCount: FireStoreReadDataService.bestSelling!.length,
+        itemCount: (FireStoreService.bestSellingBox!.getAt(0) as List).length,
       ),
     );
   }
