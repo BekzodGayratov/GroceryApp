@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
 
   final _firestore = FirebaseFirestore.instance;
   int _coupons = 3;
+  String _location = "Bandung,Cimahi";
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +37,9 @@ class HomeScreen extends StatelessWidget {
                               .secondaryTextColor,
                           fontWeight: FontWeight.bold),
                     ),
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        value: "Bandung, Cimahi",
-                        items: [
-                          DropdownMenuItem(
-                              value: "Bandung, Cimahi",
-                              child: Text(
-                                "Bandung, Cimahi",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ))
-                        ],
-                        onChanged: (v) {},
-                      ),
-                    ),
+                    // DropdownButtonHideUnderline(
+                    //   child: DropdownLocation(),
+                    // ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.062,
                       child: SearchFieldHomeScreen(),
@@ -150,5 +140,5 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  }

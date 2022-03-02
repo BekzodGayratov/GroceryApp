@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:project/services/fireStore.services.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project/providers/change_theme_provider.dart';
 
 SizedBox categories(BuildContext context, {required bool b}) {
-  List category = (FireStoreService.data!.get("category") as List);
   if (b) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.16,
@@ -20,7 +18,8 @@ SizedBox categories(BuildContext context, {required bool b}) {
               height: double.infinity,
               width: MediaQuery.of(context).size.width * 0.3,
               decoration: BoxDecoration(
-                  color: Color(int.parse(category[index]['color'])),
+                  color: Color(
+                      int.parse(FireStoreService.category![index]["color"])),
                   borderRadius: BorderRadius.circular(20.0)),
               child: Padding(
                 padding:
@@ -29,12 +28,12 @@ SizedBox categories(BuildContext context, {required bool b}) {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SvgPicture.network(
-                       category[index]["imageUrl"]),
+                        FireStoreService.category![index]["imageUrl"]),
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
                     Text(
-                      category[index]["name"],
+                      FireStoreService.category![index]["name"],
                       style: TextStyle(
                           color: context
                               .watch<ChangeThemeProvider>()
@@ -46,11 +45,11 @@ SizedBox categories(BuildContext context, {required bool b}) {
               ),
             );
           },
-          itemCount: category.length),
+          itemCount: FireStoreService.category!.length),
     );
   } else {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.28,
+      height: MediaQuery.of(context).size.height * 0.32,
       width: double.infinity,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -59,9 +58,9 @@ SizedBox categories(BuildContext context, {required bool b}) {
             margin: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.022),
             height: double.infinity,
-            width: MediaQuery.of(context).size.width * 0.44,
+            width: MediaQuery.of(context).size.width * 0.48,
             decoration: BoxDecoration(
-                color: Colors.blue, borderRadius: BorderRadius.circular(20.0)),
+                color: Color(int.parse(FireStoreService.bestSelling![index]["backColor"])), borderRadius: BorderRadius.circular(20.0)),
             child: Padding(
               padding:
                   EdgeInsets.all(MediaQuery.of(context).size.height * 0.02),
@@ -69,18 +68,19 @@ SizedBox categories(BuildContext context, {required bool b}) {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SvgPicture.network(
-                      "https://firebasestorage.googleapis.com/v0/b/grocery-app-773a8.appspot.com/o/banana.svg?alt=media&token=e8b49459-fdbc-4b6c-8d44-40d0d4a44623"),
+                  FireStoreService.bestSelling![index]['imageUrl'],
+                  ),
                   Padding(
                     padding: EdgeInsets.only(
                         top: MediaQuery.of(context).size.height * 0.025,
                         bottom: MediaQuery.of(context).size.height * 0.007),
                     child: Text(
-                      "Best Selling",
+                   FireStoreService.bestSelling![index]["name"],
                       style: TextStyle(fontWeight: FontWeight.w700),
                     ),
                   ),
                   Text(
-                    "Vegshop",
+                    FireStoreService.bestSelling![index]["subtitle"],
                     style: TextStyle(
                         color: context
                             .watch<ChangeThemeProvider>()
@@ -94,7 +94,7 @@ SizedBox categories(BuildContext context, {required bool b}) {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "\$4.99/Kg",
+                        FireStoreService.bestSelling![index]['kg'].toString()+"/Kg",
                         style: TextStyle(
                             fontSize: 16.0, fontWeight: FontWeight.w700),
                         maxLines: 1,
@@ -123,7 +123,7 @@ SizedBox categories(BuildContext context, {required bool b}) {
             ),
           );
         },
-        itemCount: 3,
+        itemCount: FireStoreService.bestSelling!.length,
       ),
     );
   }
